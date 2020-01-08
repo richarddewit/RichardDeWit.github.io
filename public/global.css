@@ -1,8 +1,8 @@
 /*
- *  * Off-white: #e3d5ba
- *   * Orange:    #e86701
- *    * Gray:      #474747
- *     */
+ * Off-white: #e3d5ba
+ * Orange:    #e86701
+ * Gray:      #474747
+ */
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -116,5 +116,3 @@ a:hover {
     text-shadow: #fffc 1px 1px 5px;
   }
 }
-
-
