@@ -1,5 +1,6 @@
 <script>
  import Footer from "@/Footer.svelte";
+ import RockPaperScissors from "@/RPS/RockPaperScissors.svelte";
 </script>
 
 <style>
@@ -17,7 +18,8 @@
  }
 </style>
 
-<h1>&nbsp;&nbsp;Soon&trade;</h1>
-<p>Under Construction</p>
+<main>
+  <RockPaperScissors/>
+</main>
 
 <Footer/>
