@@ -1,0 +1,9 @@
+{
+  "rules": {
+    "curly": "error",
+    "quotes": ["error", "double"],
+    "comma-dangle": ["error", "always-multiline"],
+    "semi": ["error", "always", { "omitLastInOneLineBlock": true }]
+  },
+  "parser": "babel-eslint"
+}
