@@ -26,6 +26,10 @@ body {
   color: #4dd827, #67f100, #eeff08, #13ff29, #000;
   color: #e3d5ba, #e86701, #474747;
   color: #e3d5ba;
+}
+
+body,
+button {
   font-family: "Dosis", sans-serif;
 }
 
@@ -47,4 +51,8 @@ a {
 a:hover {
   color: #e3d5ba;
   transition: color .15s ease;
+}
+
+small {
+  font-size: 60%;
 }
