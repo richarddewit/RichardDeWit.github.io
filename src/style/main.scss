@@ -1,0 +1,100 @@
+$white: #e3d5ba;
+$orange: #e86701;
+$gray: #474747;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: $gray;
+  color: $white;
+}
+
+body,
+button,
+input,
+textarea {
+  font-family: "Dosis", sans-serif;
+}
+
+h1,
+p {
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.8em;
+  line-height: 1.1;
+  margin: 0 0 0.3em;
+}
+
+p {
+  margin: 0 0 0.3em;
+}
+
+a {
+  color: $orange;
+  text-decoration: none;
+
+  &:hover {
+    color: $white;
+    transition: color 0.15s ease;
+  }
+}
+
+small {
+  font-size: 60%;
+}
+
+hr {
+  width: 100%;
+  border: 1px dashed $orange;
+}
+
+label,
+input {
+  display: inline-block;
+  margin: 0 0 0.3em;
+  width: 100%;
+  max-width: 300px;
+}
+
+.form-control {
+  margin-bottom: 1em;
+}
+
+label {
+  color: $orange;
+  font-weight: bold;
+}
+
+form {
+  text-align: center;
+}
+
+button {
+  font-size: 1em;
+  display: inline-block;
+  color: $orange;
+  border: 2px solid $orange;
+  background: none;
+  margin: 0 0.5em 0.5em 0;
+  padding: 0.2em 0.5em;
+  border-radius: 5px;
+}

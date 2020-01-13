@@ -1,4 +1,6 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const path = require("path");
 
 const mode = process.env.NODE_ENV || "development";
@@ -28,6 +30,7 @@ module.exports = {
         use: {
           loader: "svelte-loader",
           options: {
+            dev: !prod,
             emitCss: true,
             hotReload: true,
           },
@@ -44,6 +47,22 @@ module.exports = {
           "css-loader",
         ],
       },
+      {
+        test: /\.scss$/,
+        enforce: "pre",
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              ident: "postcss",
+              plugins: [require("autoprefixer")],
+            },
+          },
+          "sass-loader",
+        ],
+      },
     ],
   },
   mode,
@@ -52,5 +71,13 @@ module.exports = {
       filename: "[name].css",
     }),
   ],
+  optimization: {
+    minimizer: [
+      new OptimizeCssAssetsPlugin({
+        cssProcessorOptions: { map: { inline: false } },
+      }),
+      new TerserPlugin(),
+    ],
+  },
   devtool: prod ? false : "source-map",
 };
