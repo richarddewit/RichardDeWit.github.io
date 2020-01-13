@@ -46,22 +46,22 @@
 
     switch (outcome) {
       case rockWins:
-        (playersPick.value === rock) && playerWins();
-        (computersPick.value === rock) && computerWins();
+        playersPick.value === rock && playerWins();
+        computersPick.value === rock && computerWins();
         break;
       case paperWins:
-        (playersPick.value === paper) && playerWins();
-        (computersPick.value === paper) && computerWins();
+        playersPick.value === paper && playerWins();
+        computersPick.value === paper && computerWins();
         break;
       case scissorsWins:
-        (playersPick.value === scissors) && playerWins();
-        (computersPick.value === scissors) && computerWins();
+        playersPick.value === scissors && playerWins();
+        computersPick.value === scissors && computerWins();
         break;
 
       case 0b100:
       case 0b010:
       case 0b001:
-        result = "Tie! Try again."
+        result = "Tie! Try again.";
         break;
 
       default:
@@ -102,26 +102,38 @@
   });
 </script>
 
+<svelte:window on:keydown={handleKeydown} />
+
+<h1>Rock, Paper, Scissors</h1>
+
+<p>
+  <small>Click a button or press 1, 2, 3 or R, P, S on your keyboard.</small>
+</p>
+
+<hr />
+
+<div class="score">
+  <span>{playerName}: {playersScore}</span>
+  <span>{computerName}: {computersScore}</span>
+</div>
+
+<div class="choices">
+  {#each choices as choice}
+    <button on:click={() => pick(choice)}>
+      <i class="fa fa-fw fa-{choice.icon}" />
+      {choice.label}
+    </button>
+  {/each}
+</div>
+
+<div class="messages">
+  <p>&nbsp;{message}&nbsp;</p>
+  <p>&nbsp;{result}&nbsp;</p>
+</div>
+
 <style>
-  h1,
-  p {
-    text-align: center;
-  }
-
-  hr {
-    width: 100%;
-    border: 1px dashed #e86701;
-  }
-
   button {
     font-size: 1.3em;
-    display: inline-block;
-    color: #e86701;
-    border: 2px solid #e86701;
-    background: none;
-    margin: 0 0.5em;
-    padding: 0.2em 0.5em;
-    border-radius: 5px;
   }
 
   .messages,
@@ -140,7 +152,7 @@
 
   .score span {
     display: inline-block;
-    margin-right: .5em;
+    margin-right: 0.5em;
     word-break: break-word;
   }
 
@@ -165,32 +177,3 @@
     }
   }
 </style>
-
-<svelte:window on:keydown={handleKeydown}/>
-
-<h1>Rock, Paper, Scissors</h1>
-
-<p>
-  <small>Click a button or press 1, 2, 3 or R, P, S on your keyboard.</small>
-</p>
-
-<hr/>
-
-<div class="score">
-  <span>{playerName}: {playersScore}</span>
-  <span>{computerName}: {computersScore}</span>
-</div>
-
-<div class="choices">
-  {#each choices as choice}
-    <button on:click={() => pick(choice)}>
-      <i class="fa fa-fw fa-{choice.icon}"></i>
-      {choice.label}
-    </button>
-  {/each}
-</div>
-
-<div class="messages">
-  <p>&nbsp;{message}&nbsp;</p>
-  <p>&nbsp;{result}&nbsp;</p>
-</div>
