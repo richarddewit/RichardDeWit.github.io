@@ -5,5 +5,12 @@
     "comma-dangle": ["error", "always-multiline"],
     "semi": ["error", "always", { "omitLastInOneLineBlock": true }]
   },
-  "parser": "babel-eslint"
+  "parser": "babel-eslint",
+  "plugins": ["svelte3"],
+  "overrides": [
+    {
+      "files": ["**/*.svelte"],
+      "processor": "svelte3/svelte3"
+    }
+  ]
 }

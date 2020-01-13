@@ -7,6 +7,7 @@
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
     "eslint": "^6.8.0",
+    "eslint-plugin-svelte3": "^2.7.3",
     "mini-css-extract-plugin": "^0.6.0",
     "node-sass": "^4.13.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
@@ -24,7 +25,9 @@
     "webpack-dev-server": "^3.3.1"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack",
+    "format": "prettier \"src/**/*.{js,scss,css,svelte}\" --write",
+    "lint": "eslint --ignore-pattern \"public/**/*\" --ext .js,.svelte .",
+    "build": "npm run format && cross-env NODE_ENV=production webpack",
     "dev": "webpack-dev-server --content-base public"
   },
   "private": true,
