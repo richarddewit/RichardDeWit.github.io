@@ -1,6 +1,21 @@
 <script>
  import Footer from "@/Footer.svelte";
  import RockPaperScissors from "@/RPS/RockPaperScissors.svelte";
+
+ import { PlayerName } from "@/stores";
+
+ let name = "";
+ let startGame = false;
+
+ function setName() {
+   let n = name.substr(0, 16);
+   PlayerName.set(n || "You");
+   startGame = true;
+ }
+
+ function reset() {
+   startGame = false;
+ }
 </script>
 
 <style>
@@ -14,7 +29,6 @@
    min-height: calc(100vh - 8rem);
    padding: 1rem;
    font-size: 1.6em;
-   text-shadow: #e3d5bacc 1px 1px 5px;
    max-width: 640px;
    margin: 0 auto;
  }
@@ -28,7 +42,27 @@
 </style>
 
 <main>
-  <RockPaperScissors/>
+  {#if startGame}
+    <RockPaperScissors/>
+
+    <button on:click={reset}>
+      <i class="fa fa-fw fa-chevron-left"></i>
+      Start over
+    </button>
+  {:else}
+    <h1>Let's play a game</h1>
+    <form on:submit|preventDefault={setName}>
+      <div class="form-control">
+        <label for="name">What's your name?</label>
+        <input name="name" id="name" type="text" bind:value={name} autofocus maxlength="16" />
+      </div>
+
+      <button type="submit">
+        <i class="fa fa-fw fa-flag"></i>
+        Start
+      </button>
+    </form>
+  {/if}
 </main>
 
 <Footer/>

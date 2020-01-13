@@ -1,5 +1,13 @@
 <script>
-  import { onMount } from "svelte";
+  import { onDestroy } from "svelte";
+  import { PlayerName } from "@/stores";
+
+  let playerName = "You";
+  let computerName = "Richard";
+
+  const playerNameUnsubscribe = PlayerName.subscribe(value => {
+    playerName = value;
+  });
 
   const rock = 0b100;
   const paper = 0b010;
@@ -34,7 +42,7 @@
   function pick(playersPick) {
     const computersPick = choices[Math.floor(Math.random() * choices.length)];
     const outcome = playersPick.value | computersPick.value;
-    message = `Player picked ${playersPick.label}, Computer picked ${computersPick.label}`;
+    message = `${playerName} picked ${playersPick.label}, ${computerName} picked ${computersPick.label}`;
 
     switch (outcome) {
       case rockWins:
@@ -63,12 +71,12 @@
   }
 
   function playerWins() {
-    result = "Player wins!";
+    result = playerName + " win" + (playerName === "You" ? "" : "s") + "!";
     playersScore++;
   }
 
   function computerWins() {
-    result = "Computer wins!";
+    result = `${computerName} wins!`;
     computersScore++;
   }
 
@@ -88,6 +96,10 @@
     const key = e.key;
     pickByKey(key);
   }
+
+  onDestroy(() => {
+    playerNameUnsubscribe();
+  });
 </script>
 
 <style>
@@ -128,6 +140,12 @@
 
   .score span {
     display: inline-block;
+    margin-right: .5em;
+    word-break: break-word;
+  }
+
+  .score span:last-child {
+    margin-right: 0;
   }
 
   @media screen and (max-width: 400px) {
@@ -159,8 +177,8 @@
 <hr/>
 
 <div class="score">
-  <span>Player: {playersScore}</span>
-  <span>Computer: {computersScore}</span>
+  <span>{playerName}: {playersScore}</span>
+  <span>{computerName}: {computersScore}</span>
 </div>
 
 <div class="choices">
