@@ -5,11 +5,18 @@
   import { PlayerName } from "@/stores";
 
   let name = "";
+  let message = "";
   let startGame = false;
 
   function setName() {
-    let n = name.substr(0, 16);
-    PlayerName.set(n || "You");
+    name = name.replace(/[^\w -]/g, "").substr(0, 16).trim();
+    if (name.toLowerCase() === "your name") {
+      message = "Very funny";
+      name = "";
+      return;
+    }
+
+    PlayerName.set(name || "You");
     startGame = true;
   }
 
@@ -30,7 +37,7 @@
     <h1>Let's play a game</h1>
     <form on:submit|preventDefault={setName}>
       <div class="form-control">
-        <label for="name">What's your name?</label>
+        <label for="name">Enter your name</label>
         <input
           name="name"
           id="name"
@@ -38,6 +45,10 @@
           bind:value={name}
           autofocus
           maxlength="16" />
+
+        <p>
+          <small>{message}</small>
+        </p>
       </div>
 
       <button type="submit">
