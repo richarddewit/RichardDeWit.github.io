@@ -46,7 +46,7 @@
     flex-direction: column;
     position: absolute;
     right: 0;
-    bottom: 4rem;
+    bottom: 0;
     left: 0;
     padding: 0.5rem 1rem;
     height: 4rem;

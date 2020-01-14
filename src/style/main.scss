@@ -20,7 +20,7 @@ html {
 
 body {
   position: relative;
-  min-height: 100vh;
+  min-height: calc(100vh - 4rem);
   overflow-x: hidden;
   background-color: $gray;
   color: $white;
