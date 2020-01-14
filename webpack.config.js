@@ -20,6 +20,7 @@ module.exports = {
   },
   output: {
     path: __dirname + "/public/assets",
+    publicPath: "/assets/",
     filename: "[name].js",
     chunkFilename: "[name].[id].js",
   },
@@ -80,4 +81,10 @@ module.exports = {
     ],
   },
   devtool: prod ? false : "source-map",
+  devServer: {
+    contentBase: __dirname + "/public/assets",
+    inline: true,
+    host: "0.0.0.0",
+    port: 4200,
+  },
 };
