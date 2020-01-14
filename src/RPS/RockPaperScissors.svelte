@@ -1,8 +1,11 @@
 <script>
   import { onDestroy } from "svelte";
-  import Score from "@/components/Score.svelte";
+  import Game from "@/components/Game.svelte";
   import { PlayerName } from "@/stores";
   import { computerName } from "@/settings";
+
+  const title = "Rock, Paper, Scissors";
+  const description = "Click a button or press 1, 2, 3 on your keyboard.";
 
   let playerName = "You";
 
@@ -103,45 +106,37 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<h1>Rock, Paper, Scissors</h1>
+<Game {title} {description} {playersScore} {computersScore}>
+  <div class="choices">
+    {#each choices as choice, index}
+      <button on:click={() => pick(choice)}>
+        <i class="fa fa-fw fa-{choice.icon}" />
+        {choice.label}
+        <span class="keycode">{index + 1}</span>
+      </button>
+    {/each}
+  </div>
 
-<p>
-  <small>Click a button or press 1, 2, 3 on your keyboard.</small>
-</p>
-
-<hr />
-
-<Score {playersScore} {computersScore} />
-
-<div class="choices">
-  {#each choices as choice, index}
-    <button on:click={() => pick(choice)}>
-      <i class="fa fa-fw fa-{choice.icon}" />
-      {choice.label}
-      <span class="keycode">{index + 1}</span>
-    </button>
-  {/each}
-</div>
-
-<div class="messages">
-  <p>
-    {#if playersPick}
-      {playerName} picked
-      <strong>{playersPick.label}</strong>
-    {:else}&nbsp;{/if}
-  </p>
-  <p>
-    {#if computersPick}
-      {computerName} picked
-      <strong>{computersPick.label}</strong>
-    {:else}&nbsp;{/if}
-  </p>
-  <p>
-    <big>
-      {#if result}{result}{:else}&nbsp;{/if}
-    </big>
-  </p>
-</div>
+  <div class="messages">
+    <p>
+      {#if playersPick}
+        {playerName} picked
+        <strong>{playersPick.label}</strong>
+      {:else}&nbsp;{/if}
+    </p>
+    <p>
+      {#if computersPick}
+        {computerName} picked
+        <strong>{computersPick.label}</strong>
+      {:else}&nbsp;{/if}
+    </p>
+    <p>
+      <big>
+        {#if result}{result}{:else}&nbsp;{/if}
+      </big>
+    </p>
+  </div>
+</Game>
 
 <style>
   button {
