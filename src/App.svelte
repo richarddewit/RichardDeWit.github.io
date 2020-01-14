@@ -9,7 +9,10 @@
   let startGame = false;
 
   function setName() {
-    name = name.replace(/[^\w -]/g, "").substr(0, 16).trim();
+    name = name
+      .replace(/[^\w -]/g, "")
+      .substr(0, 16)
+      .trim();
     if (name.toLowerCase() === "your name") {
       message = "Very funny";
       name = "";
