@@ -1,9 +1,10 @@
 <script>
   import { onDestroy } from "svelte";
+  import Score from "@/components/Score.svelte";
   import { PlayerName } from "@/stores";
+  import { computerName } from "@/settings";
 
   let playerName = "You";
-  let computerName = "Richard";
 
   const playerNameUnsubscribe = PlayerName.subscribe(value => {
     playerName = value;
@@ -115,16 +116,7 @@
 
 <hr />
 
-<div class="score">
-  <span>
-    {playerName}:
-    <strong>{playersScore}</strong>
-  </span>
-  <span>
-    {computerName}:
-    <strong>{computersScore}</strong>
-  </span>
-</div>
+<Score {playersScore} {computersScore} />
 
 <div class="choices">
   {#each choices as choice, index}
@@ -162,27 +154,9 @@
   }
 
   .messages,
-  .score,
   .choices {
     margin: 1.2em 0;
     text-align: center;
-  }
-
-  .score {
-    display: flex;
-    justify-content: space-between;
-    align-self: center;
-    width: 300px;
-  }
-
-  .score span {
-    display: inline-block;
-    margin-right: 0.5em;
-    word-break: break-word;
-  }
-
-  .score span:last-child {
-    margin-right: 0;
   }
 
   @media screen and (max-width: 400px) {
@@ -192,7 +166,6 @@
     }
 
     .messages,
-    .score,
     .choices {
       margin: 0.5em 0;
     }
