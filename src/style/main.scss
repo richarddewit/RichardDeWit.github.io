@@ -48,6 +48,11 @@ p {
   margin: 0 0 0.3em;
 }
 
+strong {
+  color: $orange;
+  font-weight: bold;
+}
+
 a {
   color: $orange;
   text-decoration: none;
@@ -60,6 +65,10 @@ a {
 
 small {
   font-size: 60%;
+}
+
+big {
+  font-size: 120%;
 }
 
 hr {
@@ -108,10 +117,65 @@ form {
 button {
   font-size: 1em;
   display: inline-block;
-  color: $orange;
-  border: 2px solid $orange;
-  background: none;
+  color: $gray;
+  border: 2px solid darken($gray, 5%);
+  background: $orange;
   margin: 0 0.5em 0.5em 0;
   padding: 0.2em 0.5em;
   border-radius: 5px;
+  user-select: none;
+  transition: 0.15s ease;
+  transition-property: background-color, border-color, color;
+
+  &:hover {
+    background: lighten($orange, 5%);
+  }
+
+  &:active {
+    background: darken($orange, 5%);
+  }
+
+  &:focus {
+    outline-color: rgba($orange, 0.8);
+  }
+
+  &.inverted {
+    color: $orange;
+    border: 2px solid darken($orange, 5%);
+    background: $gray;
+
+    &:hover {
+      background: lighten($gray, 5%);
+    }
+
+    &:active {
+      background: darken($gray, 5%);
+    }
+
+    &:focus {
+      outline-color: rgba($gray, 0.8);
+    }
+  }
+}
+
+.keycode {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.5em;
+  font-size: 60%;
+  font-family: monospace;
+  line-height: 1;
+
+  &::before,
+  &::after {
+    color: $white;
+  }
+
+  &::before {
+    content: "[";
+  }
+
+  &::after {
+    content: "]";
+  }
 }

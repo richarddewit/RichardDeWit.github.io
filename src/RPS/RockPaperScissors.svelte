@@ -38,9 +38,12 @@
   let result = "";
   let playersScore = 0;
   let computersScore = 0;
+  let playersPick = null;
+  let computersPick = null;
 
-  function pick(playersPick) {
-    const computersPick = choices[Math.floor(Math.random() * choices.length)];
+  function pick(choice) {
+    playersPick = choice;
+    computersPick = choices[Math.floor(Math.random() * choices.length)];
     const outcome = playersPick.value | computersPick.value;
     message = `${playerName} picked ${playersPick.label}, ${computerName} picked ${computersPick.label}`;
 
@@ -113,27 +116,49 @@
 <hr />
 
 <div class="score">
-  <span>{playerName}: {playersScore}</span>
-  <span>{computerName}: {computersScore}</span>
+  <span>
+    {playerName}:
+    <strong>{playersScore}</strong>
+  </span>
+  <span>
+    {computerName}:
+    <strong>{computersScore}</strong>
+  </span>
 </div>
 
 <div class="choices">
-  {#each choices as choice}
+  {#each choices as choice, index}
     <button on:click={() => pick(choice)}>
       <i class="fa fa-fw fa-{choice.icon}" />
       {choice.label}
+      <span class="keycode">{index + 1}</span>
     </button>
   {/each}
 </div>
 
 <div class="messages">
-  <p>&nbsp;{message}&nbsp;</p>
-  <p>&nbsp;{result}&nbsp;</p>
+  <p>
+    {#if playersPick}
+      {playerName} picked
+      <strong>{playersPick.label}</strong>
+    {:else}&nbsp;{/if}
+  </p>
+  <p>
+    {#if computersPick}
+      {computerName} picked
+      <strong>{computersPick.label}</strong>
+    {:else}&nbsp;{/if}
+  </p>
+  <p>
+    <big>
+      {#if result}{result}{:else}&nbsp;{/if}
+    </big>
+  </p>
 </div>
 
 <style>
   button {
-    font-size: 1.3em;
+    font-size: 1.1em;
   }
 
   .messages,

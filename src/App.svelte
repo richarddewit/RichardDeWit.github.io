@@ -4,11 +4,20 @@
 
   import { PlayerName } from "@/stores";
 
+  const games = [
+    {
+      name: "Rock, Paper, Scissors",
+      component: RockPaperScissors,
+    },
+  ];
+
   let name = "";
   let message = "";
   let startGame = false;
+  let selectedGame = null;
 
   function setName() {
+    message = "";
     name = name
       .replace(/[^\w -]/g, "")
       .substr(0, 16)
@@ -25,22 +34,66 @@
 
   function reset() {
     startGame = false;
+    selectedGame = null;
+  }
+
+  function pick(game) {
+    selectedGame = game;
+  }
+
+  function handleKeydown(e) {
+    const key = e.key.toUpperCase();
+    if (key === "ESCAPE") {
+      return reset();
+    }
+
+    if (selectedGame !== null) {
+      return;
+    }
+
+    if (startGame) {
+      const gameKeys = [...Array(games.length + 1).keys()].map(String);
+      gameKeys.shift();
+
+      const index = gameKeys.indexOf(key);
+      if (index !== -1) {
+        return pick(games[index]);
+      }
+    }
   }
 </script>
 
+<svelte:window on:keydown={handleKeydown} />
+
 <main>
   {#if startGame}
-    <RockPaperScissors />
+    {#if selectedGame === null}
+      <h1>Select a game to play</h1>
+      {#each games as game, index}
+        <button on:click={() => pick(game)}>
+          {game.name}
+          <span class="keycode">{index + 1}</span>
+        </button>
+      {/each}
+    {:else}
+      <svelte:component this={selectedGame.component} />
+    {/if}
 
-    <button on:click={reset}>
+    <button class="inverted" on:click={reset}>
       <i class="fa fa-fw fa-chevron-left" />
       Start over
+      <span class="keycode">Esc</span>
     </button>
   {:else}
     <h1>Let's play a game</h1>
     <form on:submit|preventDefault={setName}>
       <div class="form-control">
         <label for="name">Enter your name</label>
+
+        <p>
+          <small>{message}</small>
+        </p>
+
         <input
           name="name"
           id="name"
@@ -48,15 +101,12 @@
           bind:value={name}
           autofocus
           maxlength="16" />
-
-        <p>
-          <small>{message}</small>
-        </p>
       </div>
 
       <button type="submit">
         <i class="fa fa-fw fa-flag" />
         Start
+        <span class="keycode">Enter</span>
       </button>
     </form>
   {/if}
