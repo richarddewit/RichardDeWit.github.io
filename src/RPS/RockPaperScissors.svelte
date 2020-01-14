@@ -85,12 +85,7 @@
   }
 
   function pickByKey(key) {
-    let index = ["1", "2", "3"].indexOf(key);
-    if (index !== -1) {
-      return pick(choices[index]);
-    }
-
-    index = ["r", "p", "s"].indexOf(key);
+    const index = ["1", "2", "3"].indexOf(key);
     if (index !== -1) {
       return pick(choices[index]);
     }
@@ -111,7 +106,7 @@
 <h1>Rock, Paper, Scissors</h1>
 
 <p>
-  <small>Click a button or press 1, 2, 3 or R, P, S on your keyboard.</small>
+  <small>Click a button or press 1, 2, 3 on your keyboard.</small>
 </p>
 
 <hr />
