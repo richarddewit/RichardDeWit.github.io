@@ -79,6 +79,7 @@
       <svelte:component this={selectedGame.component} />
     {/if}
 
+    <br />
     <button class="inverted" on:click={reset}>
       <i class="fa fa-fw fa-chevron-left" />
       Start over

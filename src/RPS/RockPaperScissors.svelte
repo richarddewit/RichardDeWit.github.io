@@ -150,7 +150,7 @@
 
   .messages,
   .choices {
-    margin: 1.2em 0;
+    margin: 1.2em 0 0;
     text-align: center;
   }
 
